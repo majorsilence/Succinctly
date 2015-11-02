@@ -10,4 +10,4 @@ echo "deb http://www.apache.org/dist/cassandra/debian 21x main" > /etc/apt/sourc
 
 apt-get update
 apt-get install -y --force-yes cassandra
-
+yes | ufw disable
