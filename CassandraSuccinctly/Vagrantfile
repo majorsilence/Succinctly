@@ -14,18 +14,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   
   config.vm.provider "virtualbox" do |v|
-    v.memory = 712
+    v.memory = 1024
   end
 
-  config.vm.define "linuxdev" do |linuxdev|
-      linuxdev.vm.box = "trusty64"
-      linuxdev.vm.provision :shell, :path => "./bootstrap.sh"
+  config.vm.define "cassandra" do |cassandra|
+      cassandra.vm.box = "trusty64"
+      cassandra.vm.provision :shell, :path => "./bootstrap.sh"
 
       # The url from where the 'config.vm.box' box will be fetched if it
       # doesn't already exist on the user's system.
-      linuxdev.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+      cassandra.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
       
-      linuxdev.vm.network "private_network", ip: "192.168.66.4"
+      cassandra.vm.network :forwarded_port, guest: 9042, host: 9042
+      cassandra.vm.network "private_network", ip: "192.168.66.4"
     
 
   end
